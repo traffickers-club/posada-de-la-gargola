@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Posada de la Gárgola · Casa de campo en Cieneguilla</title>
+<meta name="description" content="Casa de campo completa para hasta 25 personas en Santa Rosa de Chontay, Cieneguilla. Piscina, parrilla, horno de barro, fogata y billar. Reserva por WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="La Posada de la Gárgola · Casa de campo en Cieneguilla">
+<meta property="og:description" content="Toda la casa para tu grupo: hasta 25 personas, piscina entre los cerros, parrilla, horno de barro y fogata. Desde S/ 1,400 la noche.">
+<meta property="og:url" content="https://traffickers-club.github.io/posada-de-la-gargola/">
+<meta property="og:image" content="https://traffickers-club.github.io/posada-de-la-gargola/img/piscina_cerros.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="864">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1b2a20">
+<!-- Meta Pixel: Pixel La Posada de la Gargola -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1088974350778266');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1088974350778266&ev=PageView&noscript=1"></noscript>
+<!-- Fin Meta Pixel -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Recorrido por scroll: portada que se abre → túnel de fotos en profundidad → carrusel giratorio → reserva */
+  :root{
+    --bg:#eef0e8; --bg-2:#e1e6d8; --ink:#1b2a20; --muted:#4f5c51;
+    --straw:#93641c; --straw-light:#f6dfaa; --line:rgba(27,42,32,.16);
+    --on-photo:#f7f1e3; --on-photo-muted:#e6dcc6;
+    --wa:#25d366; --wa-ink:#06260f; --shade:rgba(8,14,10,.62); --radius:22px;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif;
+    color-scheme:light;
+  }
+  /* textos que van encima de fotos: siempre claros */
+  #portada, .final{color:var(--on-photo)}
+  #portada .eyebrow, .final .eyebrow, .hero-welcome h2 em, .final h2 em{color:var(--straw-light)}
+  .final .lead, .scroll-hint{color:var(--on-photo-muted)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(34px,5.2vw,64px);line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
+  h2 em{font-style:italic;font-weight:400;color:var(--straw)}
+  .eyebrow{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--straw);margin-bottom:12px}
+  .lead{color:var(--muted);max-width:560px;margin-top:18px;font-size:17px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:15px;padding:15px 24px;border-radius:999px;transition:transform .2s;white-space:nowrap}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:focus-visible,.wa-float:focus-visible{outline:2px solid var(--straw-light);outline-offset:3px}
+  .btn-wa{background:var(--wa);color:var(--wa-ink);box-shadow:0 10px 30px -10px rgba(37,211,102,.6)}
+  .btn-ghost{border:1px solid var(--line);background:var(--bg-2)}
+  .btn svg{width:20px;height:20px;flex:none}
+
+  /* ---------- tramos fijos que avanzan con el scroll ---------- */
+  .pin{position:relative}
+  .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+
+  /* 1 · PORTADA */
+  #portada{height:230vh}
+  .hero-bg{position:absolute;inset:0;will-change:transform}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,14,10,.55) 0%,rgba(8,14,10,0) 25%,rgba(8,14,10,.3) 45%,rgba(8,14,10,.92) 100%)}
+  .nav{position:absolute;z-index:3;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0}
+  .brand{font-family:var(--display);font-weight:600;font-size:15px;display:flex;align-items:center;gap:8px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .brand-dot{width:9px;height:9px;border-radius:50%;background:var(--straw)}
+  .hero-text{position:absolute;z-index:2;left:0;right:0;bottom:clamp(28px,7vh,70px)}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--straw-light);background:var(--shade);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:7px 14px 7px 12px;border-radius:999px;margin-bottom:16px;white-space:nowrap;max-width:100%}
+  .tag::before{content:"";width:16px;height:1px;background:var(--straw-light)}
+  .hero-title{font-family:var(--display);font-weight:800;line-height:.88;letter-spacing:-.035em;font-size:clamp(52px,11vw,168px);text-transform:uppercase;text-shadow:0 2px 4px rgba(0,0,0,.35),0 6px 30px rgba(0,0,0,.45)}
+  .hero-title span{display:block;will-change:transform,opacity}
+  .hero-title em{font-style:italic;font-weight:400;color:var(--straw-light);text-transform:none;letter-spacing:-.02em;text-shadow:0 2px 4px rgba(0,0,0,.55),0 4px 24px rgba(0,0,0,.6)}
+  .hero-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-top:22px}
+  .hero-row p{max-width:430px;color:var(--on-photo);opacity:.92;font-size:clamp(15px,1.5vw,17px);text-shadow:0 1px 10px rgba(0,0,0,.6)}
+  .scroll-hint{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-top:22px}
+  .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--straw-light),transparent);animation:drip 1.8s ease-in-out infinite}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .hero-welcome{position:absolute;z-index:2;inset:0;display:grid;place-items:center;text-align:center;padding:0 24px;opacity:0;pointer-events:none}
+  .hero-welcome h2{font-size:clamp(38px,6.5vw,92px);max-width:13ch;margin-inline:auto;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+
+  /* 2 · RECORRIDO EN PROFUNDIDAD */
+  #recorrido{height:620vh}
+  #recorrido .stage{perspective:900px;perspective-origin:50% 45%;background:radial-gradient(ellipse at 50% 40%,var(--bg-2),var(--bg) 70%)}
+  .tunnel-head{position:absolute;z-index:5;top:calc(22px + env(safe-area-inset-top,0px));left:0;right:0;text-align:center;pointer-events:none}
+  .tunnel-head .eyebrow{margin:0}
+  .tunnel-caption{position:absolute;z-index:5;left:0;right:0;bottom:calc(28px + env(safe-area-inset-bottom,0px));text-align:center;pointer-events:none}
+  .tunnel-caption b{display:block;font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,56px);line-height:1.05;letter-spacing:-.02em;transition:opacity .35s}
+  .tunnel-caption span{color:var(--muted);font-size:15px}
+  .progress{position:absolute;z-index:5;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:120px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+  .progress i{display:block;height:100%;width:100%;background:var(--straw);transform-origin:left;transform:scaleX(0)}
+  .frame{position:absolute;left:50%;top:46%;width:min(440px,36vw);aspect-ratio:4/3;border-radius:18px;overflow:hidden;box-shadow:0 22px 44px -20px rgba(27,42,32,.55);border:1px solid var(--line);backface-visibility:hidden;background:var(--bg-2)}
+  .frame.tall{aspect-ratio:3/4;width:min(340px,28vw)}
+  .frame img{width:100%;height:100%;object-fit:cover}
+
+  /* 3 · CARRUSEL GIRATORIO */
+  #carrusel{height:340vh}
+  #carrusel .stage{display:grid;place-items:center;perspective:1300px}
+  .ring-head{position:absolute;z-index:3;top:calc(clamp(30px,8vh,80px) + env(safe-area-inset-top,0px));left:0;right:0;text-align:center}
+  .ring-head h2{margin-inline:auto;max-width:14ch}
+  .ring-head h2{text-shadow:0 2px 20px var(--bg)}
+  .ring{position:relative;width:var(--w);height:calc(var(--w) * 1.3);transform-style:preserve-3d;margin-top:22vh;will-change:transform}
+  .ring figure{position:absolute;inset:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);backface-visibility:hidden}
+  .ring img{width:100%;height:100%;object-fit:cover}
+
+  /* ---------- secciones normales ---------- */
+  section{padding:clamp(70px,10vw,120px) 0}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line)}
+  .fact{padding:34px 18px;border-right:1px solid var(--line)}
+  .fact:last-child{border-right:0}
+  .fact b{display:block;font-family:var(--display);font-weight:600;font-size:clamp(24px,3.2vw,38px);line-height:1.1}
+  .fact span{color:var(--muted);font-size:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+  .chip{font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2)}
+  .price{background:var(--bg-2);border:1px solid var(--line);border-radius:calc(var(--radius) + 6px);padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+  .price-from{color:var(--muted);font-size:15px;margin-bottom:4px}
+  .price-num{font-family:var(--display);font-weight:800;font-size:clamp(46px,8vw,104px);line-height:1;letter-spacing:-.03em;white-space:nowrap}
+  .price-num small{font-size:.28em;font-weight:400;color:var(--muted);letter-spacing:0;margin-left:6px}
+  .price ul{list-style:none;margin-top:18px;display:grid;gap:8px;color:var(--muted)}
+  .price li::before{content:"✓";color:var(--straw);margin-right:10px}
+  .price-note{margin-top:18px;font-size:14px;color:var(--muted);border-left:2px solid var(--straw);padding-left:12px;max-width:520px}
+  .faq{margin-top:40px;border-top:1px solid var(--line)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;position:relative;font-family:var(--display);font-weight:600;font-size:clamp(18px,2.2vw,22px)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-family:var(--body);font-weight:400;font-size:26px;color:var(--straw);transition:transform .3s}
+  .faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+  .faq details p{color:var(--muted);padding:0 0 22px;max-width:680px}
+  .loc{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,60px);align-items:center}
+  .map-link{position:relative;display:block;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;max-width:100%;border:1px solid var(--line)}
+  .map-link img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+  .map-link:hover img{transform:scale(1.04)}
+  .map-link span{position:absolute;left:16px;bottom:16px;background:var(--bg);border:1px solid var(--line);padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px}
+  .final{position:relative;border-radius:var(--radius);overflow:hidden;min-height:520px;display:flex;align-items:flex-end;margin:0 16px}
+  .final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .final::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,14,10,.2),rgba(8,14,10,.88))}
+  .final-in{position:relative;z-index:1;padding:clamp(28px,6vw,70px) 0;width:100%}
+  footer{padding:40px 0 110px;color:var(--muted);font-size:14px;text-align:center}
+  .wa-float{position:fixed;z-index:40;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--wa);color:var(--wa-ink);width:60px;height:60px;border-radius:50%;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.5);transition:transform .3s, opacity .3s;opacity:0;transform:scale(.6);pointer-events:none}
+  .wa-float.show{opacity:1;transform:none;pointer-events:auto}
+  .wa-float svg{width:30px;height:30px}
+
+  /* ---------- celular ---------- */
+  @media (max-width:860px){
+    .tag{font-size:11px;letter-spacing:.05em}
+    .tag::before{width:10px}
+    .hero-row .btn{width:100%}
+    .tunnel-caption{padding:0 72px}
+    .tunnel-caption b{font-size:26px}
+    .frame{width:66vw}
+    .frame.tall{width:54vw}
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .fact{padding:24px 16px}
+    .fact:nth-child(2){border-right:0}
+    .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+    .loc,.price{grid-template-columns:1fr}
+    .price .btn,.final .btn{width:100%}
+    .final{margin:0 8px;min-height:460px}
+  }
+
+  /* Sin animaciones: todo se muestra como una página normal */
+  .still .pin{height:auto!important}
+  .still .stage{position:relative;height:auto;overflow:visible;perspective:none}
+  .still #portada .stage{height:100svh;overflow:hidden}
+  .still .hero-welcome,.still .tunnel-caption,.still .progress,.still .scroll-hint{display:none}
+  .still #recorrido .stage{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;padding:90px 16px 40px}
+  .still .tunnel-head{position:absolute;top:30px}
+  .still .frame{position:relative;left:auto;top:auto;width:100%!important;transform:none!important;opacity:1!important}
+  .still #carrusel{display:none}
+</style>
+</head>
+<body>
+
+<!-- 1 · PORTADA -->
+<div class="pin" id="portada">
+  <div class="stage">
+    <div class="hero-bg" id="heroBg">
+      <picture>
+        <source media="(max-width:700px)" srcset="img/piscina_casa.jpg">
+        <img src="img/piscina_cerros.jpg" alt="Piscina de La Posada de la Gárgola con cabañas de palma y los cerros de Cieneguilla al fondo" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="hero-shade"></div>
+    <nav class="nav"><div class="wrap"><span class="brand"><span class="brand-dot"></span>La Posada de la Gárgola</span></div></nav>
+
+    <div class="hero-text" id="heroText">
+      <div class="wrap">
+        <div class="tag">Santa Rosa de Chontay · Cieneguilla</div>
+        <h1 class="hero-title"><span id="t1">La Posada</span><span id="t2"><em>de la</em> Gárgola</span></h1>
+        <div class="hero-row">
+          <p>La casa de campo completa para tu grupo: hasta 25 personas, piscina entre los cerros, parrilla, horno de barro y fogata.</p>
+          <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+            Consultar por WhatsApp
+          </a>
+        </div>
+        <div class="scroll-hint"><i></i>Desliza para recorrer la casa</div>
+      </div>
+    </div>
+
+    <div class="hero-welcome" id="heroWelcome">
+      <h2>Bienvenido a tu <em>refugio en el campo</em></h2>
+    </div>
+  </div>
+</div>
+
+<!-- 2 · RECORRIDO EN PROFUNDIDAD -->
+<div class="pin" id="recorrido">
+  <div class="stage" id="tunnel">
+    <div class="tunnel-head"><div class="eyebrow">Recorre la casa</div></div>
+    <div class="tunnel-caption" aria-live="polite"><b id="capTitle">Piscina entre los cerros</b><span id="capSub">Sol de campo y palmeras</span></div>
+    <div class="progress"><i id="bar"></i></div>
+  </div>
+</div>
+
+<!-- 3 · CARRUSEL GIRATORIO -->
+<div class="pin" id="carrusel">
+  <div class="stage">
+    <div class="ring-head wrap">
+      <div class="eyebrow">Galería</div>
+      <h2>Cada rincón, <em>hecho a mano</em></h2>
+    </div>
+    <div class="ring" id="ring"></div>
+  </div>
+</div>
+
+<!-- DATOS CLAVE -->
+<div class="wrap facts">
+  <div class="fact"><b>Casa completa</b><span>Solo para tu grupo</span></div>
+  <div class="fact"><b>25 personas</b><span>Capacidad máxima</span></div>
+  <div class="fact"><b>S/ 1,400</b><span>Desde, por noche</span></div>
+  <div class="fact"><b>2 h de Lima</b><span>Cieneguilla</span></div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Todo incluido en la casa</div>
+    <h2>Palma, piedra, madera y <em>cielo abierto</em></h2>
+    <p class="lead">Una casa rústica entre los cerros de Santa Rosa de Chontay, pensada para juntarse: familias, grupos de amigos, cumpleaños y retiros. Toda la casa es para ustedes.</p>
+    <div class="chips">
+      <span class="chip">Piscina</span><span class="chip">Parrilla</span><span class="chip">Horno de barro</span>
+      <span class="chip">Fogata</span><span class="chip">Hamacas</span><span class="chip">Mesa de billar</span>
+      <span class="chip">Terrazas con vista</span><span class="chip">Cabañas de palma</span>
+      <span class="chip">Se aceptan mascotas</span><span class="chip">Cocina con menaje completo</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section id="precio" style="padding-top:0">
+  <div class="wrap">
+    <div class="price">
+      <div>
+        <div class="eyebrow">Tarifa</div>
+        <div class="price-from">Desde</div>
+        <div class="price-num">S/ 1,400<small>/ noche</small></div>
+        <ul>
+          <li>Toda la casa solo para tu grupo</li>
+          <li>Hasta 25 personas</li>
+          <li>Piscina, parrilla, horno de barro, fogata y billar</li>
+          <li>Menaje completo: vasos, platos, cubiertos y gas</li>
+          <li>Mascotas bienvenidas</li>
+          <li>Entrada 12:00 p.m. · Salida 12:00 p.m.</li>
+        </ul>
+        <p class="price-note">En feriados y fechas especiales la tarifa puede variar: consúltanos por WhatsApp. Navidad y Año Nuevo: mínimo 2 noches.</p>
+      </div>
+      <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+        Ver disponibilidad
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section id="preguntas" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Preguntas frecuentes</div>
+    <h2>Antes de <em>reservar</em></h2>
+    <div class="faq">
+      <details><summary>¿Se alquila la casa completa?</summary><p>Sí. Toda la casa, la piscina y las áreas exteriores son solo para tu grupo, hasta 25 personas.</p></details>
+      <details><summary>¿Cuánto cuesta la noche?</summary><p>Desde S/ 1,400 por noche. En feriados y fechas especiales la tarifa puede variar; escríbenos por WhatsApp con tu fecha y te pasamos el precio exacto.</p></details>
+      <details><summary>¿A qué hora es la entrada y la salida?</summary><p>La entrada es a las 12:00 p.m. y la salida a las 12:00 p.m. del día siguiente.</p></details>
+      <details><summary>¿Hay un mínimo de noches?</summary><p>Para Navidad y Año Nuevo pedimos un mínimo de 2 noches. Para otras fechas, consúltanos.</p></details>
+      <details><summary>¿Puedo llevar a mi mascota?</summary><p>Sí, las mascotas son bienvenidas.</p></details>
+      <details><summary>¿Se puede poner música?</summary><p>Sí, puedes disfrutar de tu música durante la estadía.</p></details>
+      <details><summary>¿Puedo hacer un evento o fiesta?</summary><p>No. La casa es para descansar y compartir con tu grupo; no se realizan eventos.</p></details>
+      <details><summary>¿Qué tengo que llevar para cocinar?</summary><p>Solo tus alimentos y bebidas. La casa cuenta con todo el menaje: vasos, platos, cubiertos, gas y más, además de parrilla y horno de barro.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion" style="padding-top:0">
+  <div class="wrap loc">
+    <div>
+      <div class="eyebrow">Ubicación</div>
+      <h2>A 2 horas de Lima, <em>lejos de todo</em></h2>
+      <p class="lead">Santa Rosa de Chontay, Cieneguilla. Sales de la ciudad y llegas al valle, entre cerros y aire limpio.</p>
+    </div>
+    <a class="map-link" href="https://maps.app.goo.gl/3UfcxYuNHBWwsZ6v5" target="_blank" rel="noopener">
+      <img src="img/fachada.jpg" alt="Fachada de la casa" loading="lazy">
+      <span>Ver ubicación en Google Maps →</span>
+    </a>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<div class="final">
+  <img src="img/piscina_atardecer.jpg" alt="Piscina al atardecer con las cabañas de palma" loading="lazy">
+  <div class="final-in wrap">
+    <div class="eyebrow">Reserva tu fecha</div>
+    <h2>Tu próximo fin de semana <em>empieza aquí</em></h2>
+    <p class="lead" style="margin-bottom:26px">Escríbenos por WhatsApp y te confirmamos disponibilidad.</p>
+    <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+      Consultar por WhatsApp
+    </a>
+  </div>
+</div>
+
+<footer>© La Posada de la Gárgola · Santa Rosa de Chontay, Cieneguilla</footer>
+
+<a class="wa-float js-wa" href="#" target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+</a>
+
+<script>
+  // WhatsApp del cliente: código de país + número, sin "+" ni espacios
+  const WA_NUMBER = "51906450016";
+  const WA_TEXT = "Hola, quiero consultar disponibilidad en La Posada de la Gárgola.";
+  document.querySelectorAll(".js-wa").forEach(a => {
+    a.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(WA_TEXT);
+    // Meta Pixel: cada clic a WhatsApp cuenta como "Contact" (el evento para optimizar campañas)
+    a.addEventListener("click", () => {
+      if (window.fbq) fbq("track", "Contact", { content_name: "WhatsApp " + (a.textContent.trim() || "botón flotante") });
+    });
+  });
+
+  // Fotos del recorrido (en orden de visita)
+  const tour = [
+    {f:"piscina_cerros",  t:"Piscina entre los cerros",   s:"Sol de campo y palmeras"},
+    {f:"cocina_exterior", t:"Cocina bajo la palma",       s:"Parrilla y horno de barro"},
+    {f:"fogata_vertical", t:"Fogata y hamacas",           s:"Para las noches largas", tall:true},
+    {f:"sala_principal",  t:"Sala y comedor",             s:"Espacio para comer todos juntos"},
+    {f:"comedor_rustico", t:"Terraza rústica",            s:"Madera tallada y vista a los cerros"},
+    {f:"billar",          t:"Sala de juegos",             s:"Mesa de billar"},
+    {f:"habitacion_piedra", t:"Dormitorios",              s:"Camas y camarotes para 25 personas"},
+    {f:"cabana_piedra",   t:"Cabañas de palma y piedra",  s:"Arquitectura hecha a mano", tall:true},
+    {f:"piscina_casa",    t:"La casa completa",           s:"Solo para tu grupo", tall:true}
+  ];
+  const ringPhotos = ["sala_terraza","horno_barro","rincon_helechos","dormitorio_camarote","fachada","sala_comedor","parrilla_horno","dormitorios","jardin_casa","fogata_hamacas"];
+
+  const tunnel = document.getElementById("tunnel");
+  const frames = tour.map((p, i) => {
+    const el = document.createElement("div");
+    el.className = "frame" + (p.tall ? " tall" : "");
+    el.innerHTML = `<img src="img/${p.f}.jpg" alt="${p.t}" ${i > 1 ? 'loading="lazy"' : ''}>`;
+    tunnel.appendChild(el);
+    return el;
+  });
+
+  const ring = document.getElementById("ring");
+  const ringItems = ringPhotos.map(f => {
+    const fig = document.createElement("figure");
+    fig.innerHTML = `<img src="img/${f}.jpg" alt="" loading="lazy">`;
+    ring.appendChild(fig);
+    return fig;
+  });
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) document.documentElement.classList.add("still");
+
+  const $ = id => document.getElementById(id);
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
+  const progressOf = el => {
+    const r = el.getBoundingClientRect();
+    return clamp(-r.top / (r.height - innerHeight));
+  };
+
+  let W = innerWidth, mobile = W < 860, ringW = 0, ringR = 0;
+  function layout(){
+    W = innerWidth; mobile = W < 860;
+    const H = innerHeight;
+    ringW = Math.round(Math.min(mobile ? W * .44 : 250, H * .3));
+    const n = ringItems.length;
+    ringR = Math.round((ringW / 2 + 14) / Math.tan(Math.PI / n));
+    ring.style.setProperty("--w", ringW + "px");
+    ringItems.forEach((fig, i) => fig.style.transform = `rotateY(${i * 360 / n}deg) translateZ(${ringR}px)`);
+  }
+
+  // 1 · portada: la foto se acerca y el nombre se abre hacia los lados
+  function heroFrame(){
+    const p = progressOf($("portada"));
+    const e = ease(clamp(p / .75));
+    $("heroBg").style.transform = `scale(${1 + e * .45})`;
+    $("t1").style.transform = `translateX(${-e * 60}vw)`;
+    $("t2").style.transform = `translateX(${e * 60}vw)`;
+    $("heroText").style.opacity = 1 - clamp(p / .45);
+    const w = clamp((p - .4) / .3) * (1 - clamp((p - .88) / .12));
+    $("heroWelcome").style.opacity = w;
+  }
+
+  // 2 · recorrido: la cámara avanza entre las fotos
+  let lastCap = -1;
+  function tunnelFrame(){
+    const p = progressOf($("recorrido"));
+    const D = mobile ? 900 : 1100;           // distancia entre fotos
+    const cam = p * (frames.length - .4) * D; // cuánto avanzó la cámara
+    const spread = mobile ? W * .2 : W * .27;
+    let nearest = 0, best = Infinity;
+    frames.forEach((el, i) => {
+      const z = -i * D + cam - 150;
+      const side = i % 2 ? 1 : -1;
+      const x = side * spread;
+      const y = (i % 3 - 1) * (mobile ? 30 : 50);
+      const rot = -side * 12;
+      let o = 1;
+      if (z < -3 * D) o = 0;
+      else if (z < -2 * D) o = (z + 3 * D) / D;
+      if (z > 350) o *= clamp(1 - (z - 350) / 300);
+      el.style.opacity = o;
+      el.style.visibility = o < .01 ? "hidden" : "visible";
+      el.style.transform = `translate(-50%,-50%) translate3d(${x}px,${y}px,${z}px) rotateY(${rot}deg)`;
+      el.style.zIndex = Math.round(z + 10000);
+      const d = Math.abs(z + 250);
+      if (d < best) { best = d; nearest = i; }
+    });
+    if (nearest !== lastCap) {
+      lastCap = nearest;
+      const cap = $("capTitle");
+      cap.style.opacity = 0;
+      setTimeout(() => { cap.textContent = tour[nearest].t; $("capSub").textContent = tour[nearest].s; cap.style.opacity = 1; }, 180);
+    }
+    $("bar").style.transform = `scaleX(${p})`;
+  }
+
+  // 3 · carrusel: gira con el scroll
+  function ringFrame(){
+    const p = progressOf($("carrusel"));
+    ring.style.transform = `translateZ(${-ringR}px) rotateX(-6deg) rotateY(${-p * 320}deg)`;
+  }
+
+  const waFloat = document.querySelector(".wa-float");
+  let ticking = false;
+  function frame(){
+    ticking = false;
+    waFloat.classList.toggle("show", $("portada").getBoundingClientRect().bottom < innerHeight * .5);
+    if (reduce) return;
+    heroFrame(); tunnelFrame(); ringFrame();
+  }
+  const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  addEventListener("scroll", request, {passive:true});
+  addEventListener("resize", () => { layout(); request(); });
+  layout(); frame();
+</script>
+</body>
+</html>
