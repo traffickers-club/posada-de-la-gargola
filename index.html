@@ -118,6 +118,17 @@ fbq('track', 'PageView');
   .fact span{color:var(--muted);font-size:14px}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
   .chip{font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2)}
+  /* distribución de la casa */
+  .units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:40px}
+  .unit{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+  .unit img{width:100%;aspect-ratio:16/9;object-fit:cover;max-width:100%}
+  .unit-body{padding:22px 24px 24px;display:grid;gap:12px;align-content:start}
+  .unit-level{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--straw)}
+  .unit h3{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.4vw,28px);line-height:1.1;letter-spacing:-.015em}
+  .unit ul{list-style:none;display:grid;gap:7px;padding:0;margin:0}
+  .unit li{display:grid;grid-template-columns:18px 1fr;gap:8px;color:var(--ink);font-size:15px;line-height:1.45}
+  .unit li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--straw);margin-top:.55em;justify-self:center}
+  .unit li b{font-weight:600}
   .price{background:var(--bg-2);border:1px solid var(--line);border-radius:calc(var(--radius) + 6px);padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
   .price-from{color:var(--muted);font-size:15px;margin-bottom:4px}
   .price-num{font-family:var(--display);font-weight:800;font-size:clamp(46px,8vw,104px);line-height:1;letter-spacing:-.03em;white-space:nowrap}
@@ -148,6 +159,8 @@ fbq('track', 'PageView');
 
   /* ---------- celular ---------- */
   @media (max-width:860px){
+    .units{grid-template-columns:1fr}
+    .unit-body{padding:18px 18px 20px}
     .tag{font-size:11px;letter-spacing:.05em}
     .tag::before{width:10px}
     .hero-row .btn{width:100%}
@@ -248,6 +261,68 @@ fbq('track', 'PageView');
       <span class="chip">Fogata</span><span class="chip">Hamacas</span><span class="chip">Mesa de billar</span>
       <span class="chip">Terrazas con vista</span><span class="chip">Cabañas de palma</span>
       <span class="chip">Se aceptan mascotas</span><span class="chip">Cocina con menaje completo</span>
+    </div>
+  </div>
+</section>
+
+<!-- DISTRIBUCIÓN -->
+<section id="distribucion" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Distribución</div>
+    <h2>Cuatro espacios, <em>una sola casa</em></h2>
+    <p class="lead">Toda la propiedad es para tu grupo: un bungalow y tres departamentos, para que todos tengan dónde descansar.</p>
+    <div class="units">
+      <article class="unit">
+        <img src="img/habitacion_piedra.jpg" alt="Bungalow con paredes de piedra, camas y TV" loading="lazy">
+        <div class="unit-body">
+          <div class="unit-level">Bungalow</div>
+          <h3>Bungalow principal</h3>
+          <ul>
+            <li><span><b>4 camas de 2 plazas</b></span></li>
+            <li><span>Sofá cama</span></li>
+            <li><span>TV y refrigeradora</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="unit">
+        <img src="img/sala_comedor.jpg" alt="Sala comedor del departamento del primer piso" loading="lazy">
+        <div class="unit-body">
+          <div class="unit-level">1.er piso</div>
+          <h3>Departamento 1</h3>
+          <ul>
+            <li><span>Sala comedor y cocina amoblados</span></li>
+            <li><span>1 baño</span></li>
+            <li><span><b>1 habitación:</b> 1 cama de 2 plazas, 1 camarote de plaza y media y 1 cama matrimonial</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="unit">
+        <img src="img/billar.jpg" alt="Comedor con mesa de billar del departamento del segundo piso" loading="lazy">
+        <div class="unit-body">
+          <div class="unit-level">2.º piso</div>
+          <h3>Departamento 2</h3>
+          <ul>
+            <li><span>Sala, terraza y cocina amoblados</span></li>
+            <li><span>Mesa de billar en el comedor</span></li>
+            <li><span>1 baño</span></li>
+            <li><span><b>2 habitaciones,</b> cada una con 1 camarote de plaza y media y 1 cama de plaza y media</span></li>
+          </ul>
+        </div>
+      </article>
+      <article class="unit">
+        <img src="img/comedor_rustico.jpg" alt="Cabaña rústica de madera del tercer piso con vista a los cerros" loading="lazy">
+        <div class="unit-body">
+          <div class="unit-level">3.er piso</div>
+          <h3>Cabaña rústica</h3>
+          <ul>
+            <li><span>Sala y comedor amoblados</span></li>
+            <li><span>1 baño</span></li>
+            <li><span><b>Habitación 1:</b> cama flotante</span></li>
+            <li><span><b>Habitación 2:</b> 2 camas de plaza y media</span></li>
+            <li><span><b>Habitación mirador:</b> colchón inflable de 2 plazas y sillón puff</span></li>
+          </ul>
+        </div>
+      </article>
     </div>
   </div>
 </section>
