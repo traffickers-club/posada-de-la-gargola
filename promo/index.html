@@ -109,6 +109,12 @@ fbq('track', 'PageView');
   .qty button:disabled{opacity:.35;cursor:default}
   .qty output{font-family:var(--display);font-weight:800;font-size:40px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
   .qty small{color:var(--muted);font-size:13px}
+  .nights-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px}
+  .nights-lbl{font-weight:700;font-size:15px}
+  .qty-sm button{width:42px;height:42px;font-size:22px}
+  .qty-sm output{font-size:32px;min-width:44px}
+  .nights-row small{color:var(--muted);font-size:13px;flex:1 1 140px}
+  .day.reg.sel{background:repeating-linear-gradient(135deg,var(--green) 0 6px,#2c4334 6px 12px)}
   .summary{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-top:1px solid var(--line);padding-top:16px}
   .summary .lbl{font-size:13px;color:var(--muted)}
   .summary .tot{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -168,7 +174,7 @@ fbq('track', 'PageView');
 
     <div class="booking">
       <div class="col-cal">
-        <div class="step-title"><b>1</b>Elige tu noche (o noches seguidas)</div>
+        <div class="step-title"><b>1</b>Elige tu llegada y cuántas noches</div>
         <div class="cal-head">
           <button class="nav-btn" id="prev" type="button" aria-label="Mes anterior">‹</button>
           <strong id="monthLabel" aria-live="polite"></strong>
@@ -182,7 +188,16 @@ fbq('track', 'PageView');
           <span><i style="background:var(--green)"></i>Tu noche</span>
           <span><i style="outline:2px dashed var(--green);outline-offset:-2px"></i>Día de salida</span>
         </div>
-        <div class="sel-info" id="selInfo">Toca una fecha disponible. Para 2 noches, toca después la noche siguiente.</div>
+        <div class="sel-info" id="selInfo">Toca la fecha en la que llegan. Luego eliges cuántas noches se quedan.</div>
+        <div class="nights-row">
+          <span class="nights-lbl">Noches</span>
+          <div class="qty qty-sm">
+            <button type="button" id="nMinus" aria-label="Quitar una noche">−</button>
+            <output id="nightsOut" aria-live="polite">1</output>
+            <button type="button" id="nPlus" aria-label="Agregar una noche">+</button>
+          </div>
+          <small id="nightsNote">elige primero la llegada</small>
+        </div>
       </div>
 
       <div>
@@ -208,7 +223,7 @@ fbq('track', 'PageView');
       </div>
     </div>
 
-    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
+    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Si tu estadía incluye noches fuera de la promo (como el domingo), esas se calculan a tarifa regular desde S/ 1,400. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
   </div>
 </section>
 
@@ -218,6 +233,8 @@ fbq('track', 'PageView');
   // Tarifas por noche (según el día de ENTRADA de esa noche)
   const RATE_FS = { price: 1200, max: 25, label: "vie/sáb" };   // noches de viernes y sábado
   const RATE_LS = { price: 1100, max: 20, label: "lun-jue" };   // noches de lunes a jueves (domingo no entra en promo)
+  const RATE_REG = { price: 1400, max: 25, label: "regular" };  // noches fuera de promo dentro de una estadía (ej. domingo)
+  const MAX_NIGHTS = 5;
   const FIRST_NIGHT = "2026-10-11";   // primera noche que se muestra
   const LAST_NIGHT  = "2026-12-23";   // última noche (24-31 dic son fiestas, otro precio)
   // Noches ya reservadas en Airbnb (calendario del 10 oct 2026)
@@ -237,8 +254,16 @@ fbq('track', 'PageView');
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const rateOf = d => { const w = d.getDay(); return (w === 5 || w === 6) ? RATE_FS : (w >= 1 && w <= 4) ? RATE_LS : null; };
   const isAvail = d => { const k = key(d); return k >= FIRST_NIGHT && k <= LAST_NIGHT && d > today && !blocked.has(k) && !!rateOf(d); };
+  const bookedSet = new Set(BOOKED);
+  // Tarifa de una noche dentro de una estadía: promo si está en promo; regular si está libre pero fuera de promo
+  const nightRate = d => {
+    if (isAvail(d)) return rateOf(d);
+    const k = key(d);
+    return (k >= FIRST_NIGHT && k <= LAST_NIGHT && d > today && !bookedSet.has(k)) ? RATE_REG : null;
+  };
+  const maxNightsFrom = s => { let n = 0; while (n < MAX_NIGHTS && nightRate(addDays(s, n))) n++; return n; };
   const nightsOf = () => Array.from({ length: nights }, (_, i) => addDays(start, i));
-  const maxPeople = () => start ? Math.min(...nightsOf().map(n => rateOf(n).max)) : RATE_FS.max;
+  const maxPeople = () => start ? Math.min(...nightsOf().map(n => nightRate(n).max)) : RATE_FS.max;
   const fmtLong = d => d.toLocaleDateString("es-PE", { weekday: "long", day: "numeric", month: "long" }).replace(",", "");
   const soles = n => "S/ " + n.toLocaleString("en-US");
 
@@ -280,7 +305,7 @@ fbq('track', 'PageView');
       const inSel = start && date >= start && date < end;
       const isOut = end && k === key(end);
       const r = av ? rateOf(date) : null;
-      const cls = ["day", av ? "av" : "", r === RATE_LS ? "ls" : "", inSel ? "sel" : "", isOut ? "out" : ""].join(" ");
+      const cls = ["day", av ? "av" : "", r === RATE_LS ? "ls" : "", inSel ? "sel" : "", inSel && !av ? "reg" : "", isOut ? "out" : ""].join(" ");
       const label = fmtLong(date) + (av ? `, disponible a ${soles(r.price)}` : ", no disponible") + (inSel ? ", seleccionada" : "");
       html += av
         ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${label}" aria-pressed="${!!inSel}"><span>${d}</span><span class="pr">${(r.price / 1000).toFixed(1).replace(".", ",")}k</span></button>`
@@ -293,16 +318,13 @@ fbq('track', 'PageView');
     const b = e.target.closest("button.day");
     if (!b) return;
     const d = new Date(b.dataset.k + "T00:00");
-    const nextNight = start ? addDays(start, nights) : null;
-    if (start && nextNight && key(d) === key(nextNight)) {
-      nights += 1;                       // extiende a la noche siguiente
-    } else if (start && key(d) === key(start) && nights > 1) {
-      nights = 1;                        // vuelve a una sola noche
-    } else {
-      start = d; nights = 1;             // nueva selección
-    }
+    start = d;                                             // fecha de llegada
+    nights = Math.max(1, Math.min(nights || 1, maxNightsFrom(d)));  // mantiene las noches elegidas si caben
     render(); update();
   });
+  // Selector de noches
+  document.getElementById("nMinus").onclick = () => { if (!start) return; nights = Math.max(1, nights - 1); render(); update(); };
+  document.getElementById("nPlus").onclick = () => { if (!start) return; nights = Math.min(maxNightsFrom(start), nights + 1); render(); update(); };
   document.getElementById("prev").onclick = () => { monthIdx = Math.max(0, monthIdx - 1); render(); };
   document.getElementById("next").onclick = () => { monthIdx = Math.min(MONTHS.length - 1, monthIdx + 1); render(); };
 
@@ -321,6 +343,13 @@ fbq('track', 'PageView');
     document.getElementById("maxNote").textContent = max < RATE_FS.max ? `máximo ${max} (noches lun-jue)` : `máximo ${max}`;
     minus.disabled = people <= 1; plus.disabled = people >= max;
     const info = document.getElementById("selInfo"), hint = document.getElementById("ctaHint");
+    const nMax = start ? maxNightsFrom(start) : 1;
+    document.getElementById("nightsOut").textContent = start ? nights : 1;
+    document.getElementById("nMinus").disabled = !start || nights <= 1;
+    document.getElementById("nPlus").disabled = !start || nights >= nMax;
+    document.getElementById("nightsNote").textContent = !start ? "elige primero la llegada"
+      : nights >= nMax && nMax < MAX_NIGHTS ? `máximo ${nMax} desde esta fecha (la noche siguiente ya está reservada)`
+      : `hasta ${MAX_NIGHTS} noches`;
     if (!start) {
       document.getElementById("total").textContent = soles(0);
       cta.setAttribute("aria-disabled", "true"); cta.href = "#";
@@ -328,15 +357,17 @@ fbq('track', 'PageView');
       return;
     }
     const end = addDays(start, nights);
-    const canExtend = isAvail(end);
+    const rates = nightsOf().map(nightRate);
+    const regCount = rates.filter(r => r === RATE_REG).length;
     info.innerHTML = `<b>Entrada:</b> ${fmtLong(start)}, 12 p.m. · <b>Salida:</b> ${fmtLong(end)}, 12 p.m. · <b>${nights} noche${nights > 1 ? "s" : ""}</b>`
-      + (canExtend ? `<br>¿Una noche más? Toca el ${end.toLocaleDateString("es-PE", { weekday: "long", day: "numeric" })}.` : "");
-    const prices = nightsOf().map(n => rateOf(n).price);
+      + (regCount ? `<br>Incluye ${regCount} noche${regCount > 1 ? "s" : ""} fuera de la promo (tarifa regular desde S/ 1,400).` : "");
+    const prices = rates.map(r => r.price);
     const total = prices.reduce((a, b) => a + b, 0);
     document.getElementById("total").textContent = soles(total);
     const detail = [...new Set(prices)].map(p => `${prices.filter(x => x === p).length} × ${soles(p)}`).join(" + ");
     document.getElementById("totalNote").textContent = `${detail} · ${people} persona${people > 1 ? "s" : ""}`;
-    const msg = `¡Hola Posada de la Gárgola! Quiero reservar su hospedaje los días del ${fmtLong(start)} al ${fmtLong(end)} (${nights} noche${nights > 1 ? "s" : ""}) para ${people} persona${people > 1 ? "s" : ""}. Vi el precio especial en su web: total estimado ${soles(total)}.`;
+    const regTxt = regCount ? ` (incluye ${regCount} noche${regCount > 1 ? "s" : ""} con tarifa regular)` : "";
+    const msg = `¡Hola Posada de la Gárgola! Quiero reservar su hospedaje los días del ${fmtLong(start)} al ${fmtLong(end)} (${nights} noche${nights > 1 ? "s" : ""}) para ${people} persona${people > 1 ? "s" : ""}. Vi el precio especial en su web: total estimado ${soles(total)}${regTxt}.`;
     cta.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
     cta.setAttribute("aria-disabled", "false");
     hint.style.display = "none";
