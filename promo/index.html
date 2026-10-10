@@ -223,7 +223,7 @@ fbq('track', 'PageView');
       </div>
     </div>
 
-    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Si tu estadía incluye noches fuera de la promo (como el domingo), esas se calculan a tarifa regular desde S/ 1,400. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
+    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Si tu estadía incluye la noche del domingo, esa noche también es S/ 1,100 (hasta 20 personas). Otras noches fuera de la promo se calculan a tarifa regular desde S/ 1,400. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
   </div>
 </section>
 
@@ -233,7 +233,8 @@ fbq('track', 'PageView');
   // Tarifas por noche (según el día de ENTRADA de esa noche)
   const RATE_FS = { price: 1200, max: 25, label: "vie/sáb" };   // noches de viernes y sábado
   const RATE_LS = { price: 1100, max: 20, label: "lun-jue" };   // noches de lunes a jueves (domingo no entra en promo)
-  const RATE_REG = { price: 1400, max: 25, label: "regular" };  // noches fuera de promo dentro de una estadía (ej. domingo)
+  const RATE_SUN = { price: 1100, max: 20, label: "domingo" };  // noche de domingo dentro de una estadía (no se elige como llegada)
+  const RATE_REG = { price: 1400, max: 25, label: "regular" };  // otras noches fuera de promo dentro de una estadía
   const MAX_NIGHTS = 5;
   const FIRST_NIGHT = "2026-10-11";   // primera noche que se muestra
   const LAST_NIGHT  = "2026-12-23";   // última noche (24-31 dic son fiestas, otro precio)
@@ -259,7 +260,8 @@ fbq('track', 'PageView');
   const nightRate = d => {
     if (isAvail(d)) return rateOf(d);
     const k = key(d);
-    return (k >= FIRST_NIGHT && k <= LAST_NIGHT && d > today && !bookedSet.has(k)) ? RATE_REG : null;
+    if (!(k >= FIRST_NIGHT && k <= LAST_NIGHT && d > today && !bookedSet.has(k))) return null;
+    return d.getDay() === 0 ? RATE_SUN : RATE_REG;
   };
   const maxNightsFrom = s => { let n = 0; while (n < MAX_NIGHTS && nightRate(addDays(s, n))) n++; return n; };
   const nightsOf = () => Array.from({ length: nights }, (_, i) => addDays(start, i));
@@ -305,7 +307,7 @@ fbq('track', 'PageView');
       const inSel = start && date >= start && date < end;
       const isOut = end && k === key(end);
       const r = av ? rateOf(date) : null;
-      const cls = ["day", av ? "av" : "", r === RATE_LS ? "ls" : "", inSel ? "sel" : "", inSel && !av ? "reg" : "", isOut ? "out" : ""].join(" ");
+      const cls = ["day", av ? "av" : "", r === RATE_LS ? "ls" : "", inSel ? "sel" : "", inSel && nightRate(date) === RATE_REG ? "reg" : "", isOut ? "out" : ""].join(" ");
       const label = fmtLong(date) + (av ? `, disponible a ${soles(r.price)}` : ", no disponible") + (inSel ? ", seleccionada" : "");
       html += av
         ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${label}" aria-pressed="${!!inSel}"><span>${d}</span><span class="pr">${(r.price / 1000).toFixed(1).replace(".", ",")}k</span></button>`
@@ -340,7 +342,7 @@ fbq('track', 'PageView');
     const clamped = people > max;
     if (clamped) people = max;
     document.getElementById("people").textContent = people;
-    document.getElementById("maxNote").textContent = max < RATE_FS.max ? `máximo ${max} (noches lun-jue)` : `máximo ${max}`;
+    document.getElementById("maxNote").textContent = max < RATE_FS.max ? `máximo ${max} (noches de S/ 1,100)` : `máximo ${max}`;
     minus.disabled = people <= 1; plus.disabled = people >= max;
     const info = document.getElementById("selInfo"), hint = document.getElementById("ctaHint");
     const nMax = start ? maxNightsFrom(start) : 1;
