@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Promo fin de semana · La Posada de la Gárgola</title>
+<meta name="description" content="Precio especial de fin de semana: toda la casa a S/ 1,200 la noche para hasta 25 personas. Elige tu fecha y reserva por WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Precio especial: S/ 1,200 la noche · La Posada de la Gárgola">
+<meta property="og:description" content="Toda la casa para tu grupo, hasta 25 personas. Elige tu fin de semana y reserva por WhatsApp.">
+<meta property="og:url" content="https://traffickers-club.github.io/posada-de-la-gargola/promo/">
+<meta property="og:image" content="https://traffickers-club.github.io/posada-de-la-gargola/img/piscina_cerros.jpg">
+<meta name="theme-color" content="#1b2a20">
+<!-- Meta Pixel: Pixel Oficial La posada de la Gargola (Business del cliente) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1570229827640224');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1570229827640224&ev=PageView&noscript=1"></noscript>
+<!-- Fin Meta Pixel -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Landing corta de remarketing: portada con precio → fotos deslizables → reserva (calendario + personas + WhatsApp) */
+  :root{
+    --bg:#eef0e8; --card:#ffffff; --bg-2:#e1e6d8; --ink:#1b2a20; --muted:#55625a; --line:rgba(27,42,32,.14);
+    --green:#1b2a20; --cream:#f7f1e3; --gold:#93641c; --gold-light:#f6dfaa; --gold-soft:#f1e3c4;
+    --wa:#25d366; --wa-ink:#06260f; --off:#c9cec3; --radius:22px;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1080px,100% - 32px);margin-inline:auto}
+  h1,h2{font-family:var(--display);font-weight:600;letter-spacing:-.025em;text-wrap:balance}
+  h2{font-size:clamp(28px,4.4vw,44px);line-height:1.05}
+  h2 em{font-style:italic;font-weight:400;color:var(--gold)}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+
+  /* portada */
+  .hero{position:relative;min-height:min(78svh,720px);display:flex;align-items:flex-end;color:var(--cream);overflow:hidden;border-radius:0 0 var(--radius) var(--radius)}
+  .hero picture,.hero>picture img{position:absolute;inset:0;width:100%;height:100%}
+  .hero img{object-fit:cover;object-position:center 60%}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,14,10,.55),rgba(8,14,10,0) 30%,rgba(8,14,10,.25) 50%,rgba(8,14,10,.92))}
+  .hero-in{position:relative;z-index:1;padding-block:28px 34px;display:grid;gap:14px;text-shadow:0 2px 14px rgba(0,0,0,.45)}
+  .top{position:absolute;z-index:2;top:calc(16px + env(safe-area-inset-top,0px));left:0;right:0}
+  .top .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .brand{font-family:var(--display);font-weight:600;font-size:15px;display:flex;gap:8px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+  .brand i{width:9px;height:9px;border-radius:50%;background:var(--gold-light)}
+  .badge{background:var(--gold-light);color:var(--green);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:999px;text-shadow:none;white-space:nowrap}
+  .hero h1{font-size:clamp(34px,7vw,64px);line-height:1;font-weight:800}
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--gold-light)}
+  .price{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+  .price .old{font-family:var(--display);font-size:clamp(20px,3vw,28px);color:#d6cfbd;text-decoration:line-through;text-decoration-color:#e0705a;text-decoration-thickness:2px;padding-bottom:6px}
+  .price .new{font-family:var(--display);font-weight:800;font-size:clamp(56px,13vw,104px);line-height:.85;letter-spacing:-.04em;color:var(--gold-light)}
+  .price .per{font-size:15px;padding-bottom:6px}
+  .price .per b{display:block;font-size:18px}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:8px}
+  .hero-chips span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(14,22,17,.6);border:1px solid rgba(247,241,227,.25);text-shadow:none}
+  .btn-jump{justify-self:start;display:inline-flex;align-items:center;gap:8px;background:var(--gold-light);color:var(--green);font-weight:700;font-size:15px;padding:13px 20px;border-radius:999px;text-shadow:none}
+
+  section{padding-block:44px 0}
+
+  /* fotos */
+  .strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 16px 6px;margin-inline:-16px;scrollbar-width:none}
+  .strip::-webkit-scrollbar{display:none}
+  .strip figure{flex:0 0 78%;max-width:420px;scroll-snap-align:start;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:var(--bg-2)}
+  .strip img{width:100%;height:100%;object-fit:cover}
+  .strip figcaption{position:absolute;left:12px;bottom:12px;background:rgba(14,22,17,.72);color:var(--cream);font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px}
+  .hint{font-size:13px;color:var(--muted);margin-top:6px}
+  .perks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .perks span{font-size:13px;font-weight:600;background:var(--gold-soft);padding:6px 12px;border-radius:10px}
+
+  /* reserva */
+  .booking{background:var(--card);border:1px solid var(--line);border-radius:calc(var(--radius) + 4px);padding:clamp(18px,4vw,32px);margin-top:18px;display:grid;gap:22px;box-shadow:0 20px 50px -30px rgba(27,42,32,.35)}
+  .step-title{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;margin-bottom:12px}
+  .step-title b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--green);color:var(--gold-light);font-size:13px;flex:none}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .cal-head strong{font-family:var(--display);font-size:22px;font-weight:600}
+  .nav-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
+  .nav-btn:disabled{opacity:.3;cursor:default}
+  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+  .dow{font-size:11px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.05em;padding-bottom:4px}
+  .day{aspect-ratio:1/1;border-radius:12px;border:0;font:600 15px var(--body);display:grid;place-items:center;background:transparent;color:var(--off);cursor:default;position:relative}
+  .day.av{background:var(--gold-soft);color:var(--ink);cursor:pointer}
+  .day.av:hover{outline:2px solid var(--gold)}
+  .day.sel{background:var(--green);color:var(--gold-light)}
+  .day.out{background:transparent;color:var(--ink);outline:2px dashed var(--green)}
+  .day.out::after{content:"salida";position:absolute;bottom:3px;font-size:8px;font-weight:700;letter-spacing:.04em;color:var(--green)}
+  .day:focus-visible,.nav-btn:focus-visible,.qty button:focus-visible,.cta:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+  .sel-info{margin-top:12px;font-size:14px;background:var(--bg);border-radius:12px;padding:12px 14px;color:var(--muted)}
+  .sel-info b{color:var(--ink)}
+  .qty{display:flex;align-items:center;gap:14px}
+  .qty button{width:48px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--bg);font-size:24px;font-weight:600;color:var(--ink);cursor:pointer}
+  .qty button:disabled{opacity:.35;cursor:default}
+  .qty output{font-family:var(--display);font-weight:800;font-size:40px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+  .qty small{color:var(--muted);font-size:13px}
+  .summary{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+  .summary .lbl{font-size:13px;color:var(--muted)}
+  .summary .tot{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+  .summary .note{font-size:12px;color:var(--muted);text-align:right;max-width:52%}
+  .cta{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--wa);color:var(--wa-ink);font-weight:700;font-size:18px;padding:18px;border-radius:999px;border:0;width:100%;cursor:pointer;box-shadow:0 12px 30px -12px rgba(37,211,102,.7)}
+  .cta svg{width:24px;height:24px}
+  .cta[aria-disabled="true"]{background:var(--off);color:#4d554e;box-shadow:none;cursor:not-allowed}
+  .cta-hint{font-size:13px;color:var(--muted);text-align:center;margin-top:-10px}
+  .fine{font-size:12px;color:var(--muted);text-align:center;padding:26px 0 40px;line-height:1.6}
+  .fine a{text-decoration:underline}
+
+  @media (min-width:860px){
+    .strip figure{flex-basis:300px}
+    .booking{grid-template-columns:1.25fr 1fr;align-items:start}
+    .booking .col-cal{grid-row:span 3}
+  }
+  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <picture>
+    <source media="(max-width:700px)" srcset="../img/piscina_casa.jpg">
+    <img src="../img/piscina_cerros.jpg" alt="Piscina de La Posada de la Gárgola con los cerros de Cieneguilla" fetchpriority="high">
+  </picture>
+  <div class="top"><div class="wrap"><span class="brand"><i></i>La Posada de la Gárgola</span><span class="badge">Precio especial</span></div></div>
+  <div class="wrap hero-in">
+    <h1>Tu fin de semana <em>a precio especial</em></h1>
+    <div class="price">
+      <span class="old">S/ 1,400</span>
+      <span class="new">S/ 1,200</span>
+      <span class="per"><b>la noche</b>casa completa</span>
+    </div>
+    <div class="hero-chips"><span>Hasta 25 personas</span><span>S/ 48 por persona si van 25</span><span>Cieneguilla · 2 h de Lima</span></div>
+    <a class="btn-jump" href="#reserva">Elegir mi fecha ↓</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Así es la casa</div>
+    <h2>Toda la casa, <em>solo para tu grupo</em></h2>
+    <div class="strip" id="strip" aria-label="Fotos de la casa"></div>
+    <p class="hint">Desliza para ver más fotos →</p>
+    <div class="perks">
+      <span>Piscina</span><span>Parrilla y horno de barro</span><span>Fogata y hamacas</span><span>Billar</span><span>Bungalow + 3 departamentos</span><span>Menaje completo</span><span>Mascotas bienvenidas</span><span>Entrada y salida 12 p.m.</span>
+    </div>
+  </div>
+</section>
+
+<section id="reserva">
+  <div class="wrap">
+    <div class="eyebrow">Reserva</div>
+    <h2>Elige tu fecha y <em>cuántos van</em></h2>
+
+    <div class="booking">
+      <div class="col-cal">
+        <div class="step-title"><b>1</b>Elige tu noche (o noches seguidas)</div>
+        <div class="cal-head">
+          <button class="nav-btn" id="prev" type="button" aria-label="Mes anterior">‹</button>
+          <strong id="monthLabel" aria-live="polite"></strong>
+          <button class="nav-btn" id="next" type="button" aria-label="Mes siguiente">›</button>
+        </div>
+        <div class="grid" id="dow"></div>
+        <div class="grid" id="days" role="grid"></div>
+        <div class="legend">
+          <span><i style="background:var(--gold-soft)"></i>Disponible con promo</span>
+          <span><i style="background:var(--green)"></i>Tu noche</span>
+          <span><i style="outline:2px dashed var(--green);outline-offset:-2px"></i>Día de salida</span>
+        </div>
+        <div class="sel-info" id="selInfo">Toca una fecha disponible. Para 2 noches, toca después la noche siguiente.</div>
+      </div>
+
+      <div>
+        <div class="step-title"><b>2</b>¿Cuántas personas van?</div>
+        <div class="qty">
+          <button type="button" id="minus" aria-label="Quitar una persona">−</button>
+          <output id="people" aria-live="polite">10</output>
+          <button type="button" id="plus" aria-label="Agregar una persona">+</button>
+          <small>máximo 25</small>
+        </div>
+      </div>
+
+      <div style="display:grid;gap:18px">
+        <div class="summary">
+          <div><div class="lbl">Total estimado</div><div class="tot" id="total">S/ 0</div></div>
+          <div class="note" id="totalNote">S/ 1,200 por noche, casa completa</div>
+        </div>
+        <a class="cta" id="cta" href="#" target="_blank" rel="noopener" aria-disabled="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
+          Quiero reservar fecha
+        </a>
+        <p class="cta-hint" id="ctaHint">Primero elige una fecha en el calendario.</p>
+      </div>
+    </div>
+
+    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
+  </div>
+</section>
+
+<script>
+  // ===== CONFIGURACIÓN (editar aquí) =====
+  const WA_NUMBER = "51906450016";
+  const PRICE = 1200;          // soles por noche
+  const MAX_PEOPLE = 25;
+  // Noches disponibles con la promo (fecha de ENTRADA de cada noche, formato AAAA-MM-DD)
+  const AVAILABLE = [
+    "2026-10-17", "2026-10-24",
+    "2026-11-06", "2026-11-07", "2026-11-13", "2026-11-14",
+    "2026-11-20", "2026-11-21", "2026-11-27", "2026-11-28"
+  ];
+  const MONTHS = [[2026, 9], [2026, 10]]; // octubre y noviembre (mes base 0)
+  // =======================================
+
+  const avail = new Set(AVAILABLE);
+  const key = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const isAvail = d => avail.has(key(d)) && d >= today;
+  const fmtLong = d => d.toLocaleDateString("es-PE", { weekday: "long", day: "numeric", month: "long" }).replace(",", "");
+  const soles = n => "S/ " + n.toLocaleString("en-US");
+
+  // Fotos
+  const photos = [
+    ["piscina_casa", "Piscina"], ["piscina_cerros", "Jardín y cerros"], ["cocina_exterior", "Parrilla y horno de barro"],
+    ["fogata_vertical", "Fogata"], ["sala_principal", "Sala y comedor"], ["billar", "Billar"],
+    ["habitacion_piedra", "Bungalow"], ["comedor_rustico", "Cabaña rústica"], ["piscina_atardecer", "Atardecer"]
+  ];
+  document.getElementById("strip").innerHTML = photos.map(([f, t], i) =>
+    `<figure><img src="../img/${f}.jpg" alt="${t}" ${i > 1 ? 'loading="lazy"' : ''}><figcaption>${t}</figcaption></figure>`).join("");
+
+  // Calendario
+  let monthIdx = 0, start = null, nights = 0, people = 10;
+  // Si ya pasaron las fechas de octubre, abrir en noviembre
+  if (!AVAILABLE.some(s => s.startsWith("2026-10") && new Date(s + "T00:00") >= today)) monthIdx = 1;
+
+  document.getElementById("dow").innerHTML = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(d => `<div class="dow">${d}</div>`).join("");
+
+  function render() {
+    const [y, m] = MONTHS[monthIdx];
+    const first = new Date(y, m, 1);
+    const ml = first.toLocaleDateString("es-PE", { month: "long", year: "numeric" });
+    document.getElementById("monthLabel").textContent = ml.charAt(0).toUpperCase() + ml.slice(1);
+    document.getElementById("prev").disabled = monthIdx === 0;
+    document.getElementById("next").disabled = monthIdx === MONTHS.length - 1;
+    const offset = (first.getDay() + 6) % 7; // lunes primero
+    const daysIn = new Date(y, m + 1, 0).getDate();
+    const end = start ? addDays(start, nights) : null;
+    let html = "";
+    for (let i = 0; i < offset; i++) html += `<span></span>`;
+    for (let d = 1; d <= daysIn; d++) {
+      const date = new Date(y, m, d);
+      const k = key(date);
+      const av = isAvail(date);
+      const inSel = start && date >= start && date < end;
+      const isOut = end && k === key(end);
+      const cls = ["day", av ? "av" : "", inSel ? "sel" : "", isOut ? "out" : ""].join(" ");
+      const label = fmtLong(date) + (av ? ", disponible" : ", no disponible") + (inSel ? ", seleccionada" : "");
+      html += av
+        ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${label}" aria-pressed="${!!inSel}">${d}</button>`
+        : `<span class="${cls}" aria-label="${label}">${d}</span>`;
+    }
+    document.getElementById("days").innerHTML = html;
+  }
+
+  document.getElementById("days").addEventListener("click", e => {
+    const b = e.target.closest("button.day");
+    if (!b) return;
+    const d = new Date(b.dataset.k + "T00:00");
+    const nextNight = start ? addDays(start, nights) : null;
+    if (start && nextNight && key(d) === key(nextNight)) {
+      nights += 1;                       // extiende a la noche siguiente
+    } else if (start && key(d) === key(start) && nights > 1) {
+      nights = 1;                        // vuelve a una sola noche
+    } else {
+      start = d; nights = 1;             // nueva selección
+    }
+    render(); update();
+  });
+  document.getElementById("prev").onclick = () => { monthIdx = Math.max(0, monthIdx - 1); render(); };
+  document.getElementById("next").onclick = () => { monthIdx = Math.min(MONTHS.length - 1, monthIdx + 1); render(); };
+
+  // Personas
+  const minus = document.getElementById("minus"), plus = document.getElementById("plus");
+  minus.onclick = () => { people = Math.max(1, people - 1); update(); };
+  plus.onclick = () => { people = Math.min(MAX_PEOPLE, people + 1); update(); };
+
+  // Resumen + botón
+  const cta = document.getElementById("cta");
+  function update() {
+    document.getElementById("people").textContent = people;
+    minus.disabled = people <= 1; plus.disabled = people >= MAX_PEOPLE;
+    const info = document.getElementById("selInfo"), hint = document.getElementById("ctaHint");
+    if (!start) {
+      document.getElementById("total").textContent = soles(0);
+      cta.setAttribute("aria-disabled", "true"); cta.href = "#";
+      hint.style.display = "";
+      return;
+    }
+    const end = addDays(start, nights);
+    const canExtend = isAvail(end);
+    info.innerHTML = `<b>Entrada:</b> ${fmtLong(start)}, 12 p.m. · <b>Salida:</b> ${fmtLong(end)}, 12 p.m. · <b>${nights} noche${nights > 1 ? "s" : ""}</b>`
+      + (canExtend ? `<br>¿Una noche más? Toca el ${end.toLocaleDateString("es-PE", { weekday: "long", day: "numeric" })}.` : "");
+    const total = nights * PRICE;
+    document.getElementById("total").textContent = soles(total);
+    document.getElementById("totalNote").textContent = `${nights} noche${nights > 1 ? "s" : ""} × S/ 1,200 · ${people} persona${people > 1 ? "s" : ""}`;
+    const msg = `¡Hola Posada de la Gárgola! Quiero reservar su hospedaje los días del ${fmtLong(start)} al ${fmtLong(end)} (${nights} noche${nights > 1 ? "s" : ""}) para ${people} persona${people > 1 ? "s" : ""}. Vengo por la promo de S/ 1,200 la noche.`;
+    cta.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+    cta.setAttribute("aria-disabled", "false");
+    hint.style.display = "none";
+    cta.dataset.value = total;
+  }
+
+  cta.addEventListener("click", e => {
+    if (cta.getAttribute("aria-disabled") === "true") {
+      e.preventDefault();
+      document.getElementById("selInfo").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    if (window.fbq) fbq("track", "Contact", { content_name: "Promo fin de semana S/1200", value: Number(cta.dataset.value) || 0, currency: "PEN" });
+  });
+
+  render(); update();
+</script>
+</body>
+</html>
