@@ -223,7 +223,7 @@ fbq('track', 'PageView');
       </div>
     </div>
 
-    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Si tu estadía incluye la noche del domingo, esa noche también es S/ 1,100 (hasta 20 personas). Otras noches fuera de la promo se calculan a tarifa regular desde S/ 1,400. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
+    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Si tu estadía incluye la noche del domingo, esa noche también es S/ 1,100. Si tu estadía incluye una noche de viernes o sábado, pueden ir hasta 25 personas. Otras noches fuera de la promo se calculan a tarifa regular desde S/ 1,400. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
   </div>
 </section>
 
@@ -265,7 +265,13 @@ fbq('track', 'PageView');
   };
   const maxNightsFrom = s => { let n = 0; while (n < MAX_NIGHTS && nightRate(addDays(s, n))) n++; return n; };
   const nightsOf = () => Array.from({ length: nights }, (_, i) => addDays(start, i));
-  const maxPeople = () => start ? Math.min(...nightsOf().map(n => nightRate(n).max)) : RATE_FS.max;
+  // Si la estadía incluye una noche de viernes o sábado, se permite la capacidad completa (25);
+  // el tope de 20 aplica solo a estadías que son únicamente de noches a S/ 1,100 (lun-jue / domingo).
+  const maxPeople = () => {
+    if (!start) return RATE_FS.max;
+    const rates = nightsOf().map(nightRate);
+    return rates.some(r => r === RATE_FS || r === RATE_REG) ? RATE_FS.max : Math.min(...rates.map(r => r.max));
+  };
   const fmtLong = d => d.toLocaleDateString("es-PE", { weekday: "long", day: "numeric", month: "long" }).replace(",", "");
   const soles = n => "S/ " + n.toLocaleString("en-US");
 
