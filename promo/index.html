@@ -31,7 +31,7 @@ fbq('track', 'PageView');
   :root{
     --bg:#eef0e8; --card:#ffffff; --bg-2:#e1e6d8; --ink:#1b2a20; --muted:#55625a; --line:rgba(27,42,32,.14);
     --green:#1b2a20; --cream:#f7f1e3; --gold:#93641c; --gold-light:#f6dfaa; --gold-soft:#f1e3c4;
-    --wa:#25d366; --wa-ink:#06260f; --off:#c9cec3; --radius:22px;
+    --wa:#25d366; --wa-ink:#06260f; --off:#c9cec3; --sage-soft:#d6e4d2; --radius:22px;
     --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif;
     color-scheme:light;
   }
@@ -90,9 +90,12 @@ fbq('track', 'PageView');
   .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
   .dow{font-size:11px;font-weight:700;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.05em;padding-bottom:4px}
   .day{aspect-ratio:1/1;border-radius:12px;border:0;font:600 15px var(--body);display:grid;place-items:center;background:transparent;color:var(--off);cursor:default;position:relative}
-  .day.av{background:var(--gold-soft);color:var(--ink);cursor:pointer}
+  .day.av{background:var(--gold-soft);color:var(--ink);cursor:pointer;align-content:center;gap:0;line-height:1.05}
+  .day.av.ls{background:var(--sage-soft)}
+  .day .pr{display:block;font-size:9px;font-weight:600;opacity:.75;letter-spacing:-.01em}
+  .day.sel .pr{opacity:.9}
   .day.av:hover{outline:2px solid var(--gold)}
-  .day.sel{background:var(--green);color:var(--gold-light)}
+  .day.sel,.day.av.sel,.day.av.ls.sel{background:var(--green);color:var(--gold-light)}
   .day.out{background:transparent;color:var(--ink);outline:2px dashed var(--green)}
   .day.out::after{content:"salida";position:absolute;bottom:3px;font-size:8px;font-weight:700;letter-spacing:.04em;color:var(--green)}
   .day:focus-visible,.nav-btn:focus-visible,.qty button:focus-visible,.cta:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -108,8 +111,9 @@ fbq('track', 'PageView');
   .qty small{color:var(--muted);font-size:13px}
   .summary{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;border-top:1px solid var(--line);padding-top:16px}
   .summary .lbl{font-size:13px;color:var(--muted)}
-  .summary .tot{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
-  .summary .note{font-size:12px;color:var(--muted);text-align:right;max-width:52%}
+  .summary .tot{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .summary>div:first-child{flex:none}
+  .summary .note{font-size:12px;color:var(--muted);text-align:right;min-width:0}
   .cta{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--wa);color:var(--wa-ink);font-weight:700;font-size:18px;padding:18px;border-radius:999px;border:0;width:100%;cursor:pointer;box-shadow:0 12px 30px -12px rgba(37,211,102,.7)}
   .cta svg{width:24px;height:24px}
   .cta[aria-disabled="true"]{background:var(--off);color:#4d554e;box-shadow:none;cursor:not-allowed}
@@ -140,7 +144,7 @@ fbq('track', 'PageView');
       <span class="new">S/ 1,200</span>
       <span class="per"><b>la noche</b>casa completa</span>
     </div>
-    <div class="hero-chips"><span>Hasta 25 personas</span><span>S/ 48 por persona si van 25</span><span>Cieneguilla · 2 h de Lima</span></div>
+    <div class="hero-chips"><span>Viernes y sábado · hasta 25 personas</span><span>Lunes a jueves: S/ 1,100 · hasta 20</span><span>Cieneguilla · 2 h de Lima</span></div>
     <a class="btn-jump" href="#reserva">Elegir mi fecha ↓</a>
   </div>
 </header>
@@ -173,7 +177,8 @@ fbq('track', 'PageView');
         <div class="grid" id="dow"></div>
         <div class="grid" id="days" role="grid"></div>
         <div class="legend">
-          <span><i style="background:var(--gold-soft)"></i>Disponible con promo</span>
+          <span><i style="background:var(--gold-soft)"></i>Vie y sáb · S/ 1,200</span>
+          <span><i style="background:var(--sage-soft)"></i>Lun a jue · S/ 1,100</span>
           <span><i style="background:var(--green)"></i>Tu noche</span>
           <span><i style="outline:2px dashed var(--green);outline-offset:-2px"></i>Día de salida</span>
         </div>
@@ -186,14 +191,14 @@ fbq('track', 'PageView');
           <button type="button" id="minus" aria-label="Quitar una persona">−</button>
           <output id="people" aria-live="polite">10</output>
           <button type="button" id="plus" aria-label="Agregar una persona">+</button>
-          <small>máximo 25</small>
+          <small id="maxNote">máximo 25</small>
         </div>
       </div>
 
       <div style="display:grid;gap:18px">
         <div class="summary">
           <div><div class="lbl">Total estimado</div><div class="tot" id="total">S/ 0</div></div>
-          <div class="note" id="totalNote">S/ 1,200 por noche, casa completa</div>
+          <div class="note" id="totalNote">Casa completa · precio por noche</div>
         </div>
         <a class="cta" id="cta" href="#" target="_blank" rel="noopener" aria-disabled="true">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.8-.7 13.7 13.7 0 0 1-5.2-4.6 6 6 0 0 1-1.2-3.1c0-1.5.8-2.2 1.1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.5Z"/></svg>
@@ -203,29 +208,37 @@ fbq('track', 'PageView');
       </div>
     </div>
 
-    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario. Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
+    <p class="fine">Precio especial válido solo para las fechas marcadas en el calendario: S/ 1,200 las noches de viernes y sábado (hasta 25 personas) y S/ 1,100 las noches de lunes a jueves (hasta 20 personas). Sujeto a confirmación de disponibilidad por WhatsApp.<br>Santa Rosa de Chontay, Cieneguilla · <a href="../">Ver la web completa</a></p>
   </div>
 </section>
 
 <script>
   // ===== CONFIGURACIÓN (editar aquí) =====
   const WA_NUMBER = "51906450016";
-  const PRICE = 1200;          // soles por noche
-  const MAX_PEOPLE = 25;
-  // Noches disponibles con la promo (fecha de ENTRADA de cada noche, formato AAAA-MM-DD)
-  const AVAILABLE = [
-    "2026-10-17", "2026-10-24",
-    "2026-11-06", "2026-11-07", "2026-11-13", "2026-11-14",
-    "2026-11-20", "2026-11-21", "2026-11-27", "2026-11-28"
+  // Tarifas por noche (según el día de ENTRADA de esa noche)
+  const RATE_FS = { price: 1200, max: 25, label: "vie/sáb" };   // noches de viernes y sábado
+  const RATE_LS = { price: 1100, max: 20, label: "lun-jue" };   // noches de lunes a jueves (domingo no entra en promo)
+  const FIRST_NIGHT = "2026-10-11";   // primera noche que se muestra
+  const LAST_NIGHT  = "2026-12-23";   // última noche (24-31 dic son fiestas, otro precio)
+  // Noches ya reservadas en Airbnb (calendario del 10 oct 2026)
+  const BOOKED = ["2026-10-13", "2026-10-14", "2026-10-30", "2026-10-31", "2026-11-01"];
+  // Días entre semana que NO se ofrecen en la promo (para que el calendario se vea con movimiento)
+  const NOT_OFFERED = [
+    "2026-10-12", "2026-10-15", "2026-10-21", "2026-10-27",
+    "2026-11-03", "2026-11-04", "2026-11-10", "2026-11-17", "2026-11-18", "2026-11-24",
+    "2026-12-02", "2026-12-08", "2026-12-15", "2026-12-16", "2026-12-22"
   ];
-  const MONTHS = [[2026, 9], [2026, 10]]; // octubre y noviembre (mes base 0)
+  const MONTHS = [[2026, 9], [2026, 10], [2026, 11]]; // octubre, noviembre, diciembre (mes base 0)
   // =======================================
 
-  const avail = new Set(AVAILABLE);
+  const blocked = new Set([...BOOKED, ...NOT_OFFERED]);
   const key = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
   const today = new Date(); today.setHours(0, 0, 0, 0);
-  const isAvail = d => avail.has(key(d)) && d >= today;
+  const rateOf = d => { const w = d.getDay(); return (w === 5 || w === 6) ? RATE_FS : (w >= 1 && w <= 4) ? RATE_LS : null; };
+  const isAvail = d => { const k = key(d); return k >= FIRST_NIGHT && k <= LAST_NIGHT && d > today && !blocked.has(k) && !!rateOf(d); };
+  const nightsOf = () => Array.from({ length: nights }, (_, i) => addDays(start, i));
+  const maxPeople = () => start ? Math.min(...nightsOf().map(n => rateOf(n).max)) : RATE_FS.max;
   const fmtLong = d => d.toLocaleDateString("es-PE", { weekday: "long", day: "numeric", month: "long" }).replace(",", "");
   const soles = n => "S/ " + n.toLocaleString("en-US");
 
@@ -240,8 +253,11 @@ fbq('track', 'PageView');
 
   // Calendario
   let monthIdx = 0, start = null, nights = 0, people = 10;
-  // Si ya pasaron las fechas de octubre, abrir en noviembre
-  if (!AVAILABLE.some(s => s.startsWith("2026-10") && new Date(s + "T00:00") >= today)) monthIdx = 1;
+  // Abrir en el primer mes que tenga noches disponibles
+  for (let i = 0; i < MONTHS.length; i++) {
+    const [y, m] = MONTHS[i], n = new Date(y, m + 1, 0).getDate();
+    if (Array.from({ length: n }, (_, d) => new Date(y, m, d + 1)).some(isAvail)) { monthIdx = i; break; }
+  }
 
   document.getElementById("dow").innerHTML = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map(d => `<div class="dow">${d}</div>`).join("");
 
@@ -263,10 +279,11 @@ fbq('track', 'PageView');
       const av = isAvail(date);
       const inSel = start && date >= start && date < end;
       const isOut = end && k === key(end);
-      const cls = ["day", av ? "av" : "", inSel ? "sel" : "", isOut ? "out" : ""].join(" ");
-      const label = fmtLong(date) + (av ? ", disponible" : ", no disponible") + (inSel ? ", seleccionada" : "");
+      const r = av ? rateOf(date) : null;
+      const cls = ["day", av ? "av" : "", r === RATE_LS ? "ls" : "", inSel ? "sel" : "", isOut ? "out" : ""].join(" ");
+      const label = fmtLong(date) + (av ? `, disponible a ${soles(r.price)}` : ", no disponible") + (inSel ? ", seleccionada" : "");
       html += av
-        ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${label}" aria-pressed="${!!inSel}">${d}</button>`
+        ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${label}" aria-pressed="${!!inSel}"><span>${d}</span><span class="pr">${(r.price / 1000).toFixed(1).replace(".", ",")}k</span></button>`
         : `<span class="${cls}" aria-label="${label}">${d}</span>`;
     }
     document.getElementById("days").innerHTML = html;
@@ -292,13 +309,17 @@ fbq('track', 'PageView');
   // Personas
   const minus = document.getElementById("minus"), plus = document.getElementById("plus");
   minus.onclick = () => { people = Math.max(1, people - 1); update(); };
-  plus.onclick = () => { people = Math.min(MAX_PEOPLE, people + 1); update(); };
+  plus.onclick = () => { people = Math.min(maxPeople(), people + 1); update(); };
 
   // Resumen + botón
   const cta = document.getElementById("cta");
   function update() {
+    const max = maxPeople();
+    const clamped = people > max;
+    if (clamped) people = max;
     document.getElementById("people").textContent = people;
-    minus.disabled = people <= 1; plus.disabled = people >= MAX_PEOPLE;
+    document.getElementById("maxNote").textContent = max < RATE_FS.max ? `máximo ${max} (noches lun-jue)` : `máximo ${max}`;
+    minus.disabled = people <= 1; plus.disabled = people >= max;
     const info = document.getElementById("selInfo"), hint = document.getElementById("ctaHint");
     if (!start) {
       document.getElementById("total").textContent = soles(0);
@@ -310,10 +331,12 @@ fbq('track', 'PageView');
     const canExtend = isAvail(end);
     info.innerHTML = `<b>Entrada:</b> ${fmtLong(start)}, 12 p.m. · <b>Salida:</b> ${fmtLong(end)}, 12 p.m. · <b>${nights} noche${nights > 1 ? "s" : ""}</b>`
       + (canExtend ? `<br>¿Una noche más? Toca el ${end.toLocaleDateString("es-PE", { weekday: "long", day: "numeric" })}.` : "");
-    const total = nights * PRICE;
+    const prices = nightsOf().map(n => rateOf(n).price);
+    const total = prices.reduce((a, b) => a + b, 0);
     document.getElementById("total").textContent = soles(total);
-    document.getElementById("totalNote").textContent = `${nights} noche${nights > 1 ? "s" : ""} × S/ 1,200 · ${people} persona${people > 1 ? "s" : ""}`;
-    const msg = `¡Hola Posada de la Gárgola! Quiero reservar su hospedaje los días del ${fmtLong(start)} al ${fmtLong(end)} (${nights} noche${nights > 1 ? "s" : ""}) para ${people} persona${people > 1 ? "s" : ""}. Vengo por la promo de S/ 1,200 la noche.`;
+    const detail = [...new Set(prices)].map(p => `${prices.filter(x => x === p).length} × ${soles(p)}`).join(" + ");
+    document.getElementById("totalNote").textContent = `${detail} · ${people} persona${people > 1 ? "s" : ""}`;
+    const msg = `¡Hola Posada de la Gárgola! Quiero reservar su hospedaje los días del ${fmtLong(start)} al ${fmtLong(end)} (${nights} noche${nights > 1 ? "s" : ""}) para ${people} persona${people > 1 ? "s" : ""}. Vi el precio especial en su web: total estimado ${soles(total)}.`;
     cta.href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
     cta.setAttribute("aria-disabled", "false");
     hint.style.display = "none";
@@ -326,7 +349,7 @@ fbq('track', 'PageView');
       document.getElementById("selInfo").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
-    if (window.fbq) fbq("track", "Contact", { content_name: "Promo fin de semana S/1200", value: Number(cta.dataset.value) || 0, currency: "PEN" });
+    if (window.fbq) fbq("track", "Contact", { content_name: "Promo calendario S/1200-1100", value: Number(cta.dataset.value) || 0, currency: "PEN" });
   });
 
   render(); update();
